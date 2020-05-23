@@ -1,0 +1,37 @@
+{
+  "name": "nanoprofile_client",
+  "version": "1.0.0",
+  "description": "Nano Profile client js",
+  "main": "NanoProfile_client.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anarkrypto/nanoprofile.git"
+  },
+  "keywords": [
+    "nanoprofile",
+    "nanocurrency",
+    "profile",
+    "image",
+    "picture",
+    "client",
+    "node",
+    "nodejs",
+    "nano",
+    "xrb",
+    "raiblocks",
+    "api",
+    "json",
+    "anarkrypto"
+  ],
+  "author": "Anarkrypto",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/anarkrypto/nanoprofile/issues"
+  },
+  "homepage": "http://nanoprofile.online"
+}
