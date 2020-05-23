@@ -1,0 +1,15 @@
+{
+
+  "imageMaxSize": 256000,
+  "imageFormats": ["PNG", "JPEG", "JPG", "GIF"],
+
+  "synchronizeDelay": 2,
+
+  "ipfs": {
+		"node": "127.0.0.1",
+		"protocol": "http",
+    "gateway": "https://ipfs.io"
+  }
+
+
+}

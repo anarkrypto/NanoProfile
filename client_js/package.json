@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Nano Profile client js",
   "main": "NanoProfile_client.js",
-  "dependencies": {},
+  "dependencies": {
+    "node-fetch": "^2.6.0"
+  },
   "devDependencies": {},
   "scripts": {
     "test": "node test.js"

@@ -1,0 +1,525 @@
+html, body {
+  width: 100%;
+  min-width: 360px;
+  height: 100%;
+  word-break: break-word;
+  margin: 0px;
+  padding: 0px;
+  font-family: sans-serif;
+  background-color: #2a3a4d;
+}
+
+h1, h2, h3, h4 {
+  color: #4b4f56;
+  margin: 5px;
+  font-family: sans-serif;
+  letter-spacing: 1px;
+  font-weight: 200;
+}
+
+h1 {
+  font-family: QuerinoSans;
+  letter-spacing: 3px;
+  color: #2a3a4d;
+  font-size: 40px;
+}
+
+h2 {
+  font-family: QuerinoSans;
+  font-size: 22px;
+  color: #2a3a4d;
+  letter-spacing: 2px;
+  margin-left: 5%;
+}
+
+h4 {
+  font-weight: bold;
+}
+
+a {
+  color: #4b4f56;
+}
+
+a:hover {
+  color: #2a3a4d;
+  font-weight: bold;
+}
+
+.container {
+  width: 100%;
+  margin: 15px 0px;
+  padding: 10px 10px 25px 10px;
+  border: 1px solid #dddfe2;
+  border-radius: 3px;
+  background-color: #f5f6f7;
+
+}
+
+.sub {
+  width: 1000px;
+  max-width: 100%;
+  margin: 0px auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.about {
+  color: #4b4f56;
+  width: 450px;
+}
+
+.sliderPreview {
+   width: 320px;
+   height: 420px;
+   margin: 15px;
+   display: flex;
+   justify-content: center;
+}
+
+.sliderPreview img {
+  max-height: 400px;
+  align-self: center;
+}
+
+.footer {
+  width: 100%;
+  margin: 0px;
+  padding: 10px 0px;
+}
+
+.footer ul {
+  width: 100%;
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.footer li.fItem {
+  width: 260px;
+  height: 120px;
+  margin: 10px 20px;
+  padding: 10px 0px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  color: white;
+}
+
+.footer li.fItem:hover svg.i, .footer li.fItem:hover img.i {
+  transition: 0.15s ease-in-out;
+  box-shadow: 0rem 1rem 2rem rgba(0,0,0,0.07);
+  transform: scale(1.05);
+}
+
+.footer h4, .footer p {
+  color: #e9ebee;
+  margin: 1px 0px;
+  padding: 1px 0px;
+}
+
+.footer h4 {
+  font-size: 15px;
+}
+
+.footer p {
+}
+
+.footer .anarkrypto {
+  font-size: 16px;
+  font-family: sans-serif;
+  font-weight: 600;
+  color: white;
+  letter-spacing: 2px;
+}
+
+.footer .donate img {
+  cursor:pointer;
+  width: 90px;
+  height: 90px;
+}
+
+.social-list {
+  width: 180px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.social-list ul {
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+}
+
+.social-list svg {
+  margin: 1px 10px 0px 0px;
+}
+
+.social-list svg:hover {
+  transition: 0.15s ease-in-out;
+  box-shadow: 0rem 1rem 2rem rgba(0,0,0,0.07);
+  transform: scale(1.05);
+}
+
+.uploadImage {
+  margin: 25px 20px;
+  font-size: 14px;
+  width: 320px;
+  padding: 0px;
+  text-align: center;
+}
+
+.uploadImage .yourProfilePicture {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  margin: 20px 80px;
+  border: 1px solid #ccc;
+  border-radius: 160px;
+  box-shadow: 0rem 1rem 2rem rgba(0,0,0,0.07);
+}
+
+.uploadImage .yourProfilePicture img {
+  width: 100%;
+  height: 100%;
+  border-radius: 160px;
+}
+
+.yourProfilePicture #get_file {
+  display: none;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+  font-weight: bold;
+  background: #f9f9f9;
+  border: 0px;
+  opacity: 0.5;
+  border-radius: 160px;
+  cursor: pointer;
+}
+
+
+.uploadImage .yourProfilePicture:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.uploadImage .yourProfilePicture:hover #get_file {
+  display: block;
+}
+
+.uploadImage, .changeRepresentative, .sendTransaction {
+  text-align: center;
+}
+
+.loadingTransaction {
+  width: 100%;
+  margin-top: 30px;
+}
+
+.loadingTransaction img {
+  width: 100px;
+}
+
+.modalLayer {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.6);
+}
+
+.modal {
+  width: 600px;
+  max-width: 100%;
+  margin: 0px auto;
+  margin-bottom: 25px;
+  text-align: center;
+  border-radius: 20px;
+  z-index: 3;
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.modal .content {
+  position: relative;
+  width: calc(100% - 30px);
+  height: 100%;
+  padding: 15px;
+  background-color: #e9ebee;
+  border: 1px solid #dddfe2;
+  border-radius: 3px;
+  background-color: #f5f6f7;
+}
+
+.modal .close {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  padding: 7px;
+  background-color: #ea5365;
+  border-radius: 0px 0px 0px 12px;
+  cursor: pointer;
+}
+
+.listTerms {
+  width: 100%;
+  height: 320px;
+  font-family: aria;
+  font-size: 18px;
+  text-align: left;
+  overflow: auto;
+  border: 1px solid #e9ebee;
+  border-radius: 15px;
+  background: white;
+}
+
+.listTerms li {
+  margin: 15px 5px;
+}
+
+.showRegister .profilePicture {
+  margin: 0px auto;
+  width: 250px;
+}
+
+.showRegister .profilePicture img {
+  width: 180px;
+  height: 180px;
+  border-radius: 180px;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+.pending {
+    animation: blinker 2s linear infinite;
+}
+
+
+.qr img {
+  width: 180px;
+  height: 180px;
+  border-radius: 20px;
+}
+
+.col {
+  word-break: break-word;
+  width: 300px;
+  margin: 20px auto;
+  padding: 12px;
+  border: 1px solid #e9ebee;
+  border-radius: 15px;
+  background: white;
+}
+
+.col .go {
+  width: 100%;
+  text-align: center;
+}
+
+.showRegisters, .changeRepresentative, .sendTransaction {
+  width: 500px;
+  margin: 10px 0 20px 0px;
+}
+
+.showRegisters {
+  border: 1px solid #ccc;
+  border-radius: 25px;
+}
+
+.showRegisters ul.menu {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.showRegisters ul.menu li {
+  width: 50%;
+  margin: 0px;
+  padding: 10px 0px;
+  text-align: center;
+}
+.showRegisters ul.menu li.left {
+  border-top-left-radius: 25px;
+  border-right: 1px solid #ccc;
+}
+.showRegisters ul.menu li.right {
+  border-top-right-radius: 25px;
+}
+.showRegisters ul.menu li:hover {
+  background-color: #2a3a4d;
+  cursor: pointer;
+}
+.showRegisters ul.menu li.selected {
+  background-color: #2a3a4d;
+}
+.showRegisters ul.menu li.selected h3 {
+  color: white;
+}
+.showRegisters ul.menu li:hover h3 {
+  color: white;
+}
+
+.registersInfo {
+  width: 100%;
+  height: 36px;
+  color: #2a3a4d;
+  margin-bottom: 3px;
+  border-top: solid 1px #ccc;
+  border-bottom: solid 1px #ccc;
+  text-align: right;
+}
+
+.registersInfo > div {
+  height: 16px;
+  display:inline-block;
+  margin-right: 20px;
+  padding: 8px;
+  border: 0px;
+}
+
+.listRegisters {
+  position: relative;
+  width: 99%;
+  height: 220px;
+  overflow: auto;
+  font-size: 12px;
+  text-align: left;
+  color: #333;
+  border-radius: 0px 0px 25px 25px;
+  background-color: #f5f5f5;
+  white-space: pre-wrap;
+  word-break: break-word;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.listRegisters img.loading {
+  width: 60px;
+  height: 60px;
+  margin-top: 60px;
+  position: absolute;
+}
+
+.listRegisters .imageRegister {
+  width: 98%;
+  height: 65px;
+  margin-bottom: 2px;
+  border: 1px solid #e9ebee;
+  background-color: white;
+  cursor:pointer;
+}
+
+.listRegisters .imageRegister:hover {
+  transition: 0.15s ease-in-out;
+  box-shadow: 0rem 0.5rem 2rem rgba(0,0,0,0.07);
+  transform: scale(0.96);
+}
+
+.listRegisters .imageRegister .imageProfile {
+  margin: 0px 10px;
+  width: 70px;
+  height: 100%;
+  border-radius: 20px;
+  float: left;
+  display: flex;
+}
+
+.listRegisters .imageRegister .imageProfile img {
+  min-width: 60px;
+  max-width: 100%;
+  max-height: 100%;
+  align-self: center;
+  border-radius: 20px;
+}
+
+.listRegisters .imageRegister .info {
+  margin-left: 100px;
+  padding: 2px 0px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.findImageAccount {
+  text-align: center;
+}
+
+.findImageAccount .putAccount {
+  width: 300px;
+  padding: 5px;
+  border: solid 3px #ccc;
+  border-radius: 5px;
+}
+
+.findImageAccount .result {
+  width: 100%;
+}
+
+.findImageAccount .result img {
+  width: 150px;
+  border-radius: 100px;
+  padding: 20px;
+}
+
+button {
+  width: 100px;
+  height: 50px;
+  margin: 15px;
+  padding: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  background-color: #2a3a4d;
+  border: 0px;
+  border-radius: 0.4rem;
+  cursor: pointer;
+}
+
+button:hover {
+  transition: 0.15s ease-in-out;
+  box-shadow: 0rem 1rem 2rem rgba(0,0,0,0.07);
+  transform: scale(1.05);
+}
+
+@font-face {
+    font-family: QuerinoSans;
+    src: url("/fonts/QuerinoSans_PERSONAL_USE_ONLY.ttf") format("opentype");
+}
+
+
+@media screen and (max-width: 400px) {
+  .container {
+  }
+  .about {
+    width: 350px;
+  }
+  .showRegisters {
+    width: 350px;
+  }
+}
