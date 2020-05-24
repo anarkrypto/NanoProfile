@@ -26,20 +26,21 @@ const nanoProfile = (function () {
       getConfig = require(configFile)
     }
     if ("error" in getConfig) {
-      throw new Error ("error importing " + configFile + ": " + getConfig.error)
+      console.error ("error importing " + configFile + ": " + getConfig.error)
+      return false
     }
     return importConfig(getConfig)
   }
 
   //get the last registered image of an account
   async function getAccountImage (account) {
-    if (!checkNanoAddress(account)) return {error: "Invalid Account Format!"}
-    if (!startSynchronization) return {error: "synchronize first!"}
+    if (!checkNanoAddress(account)) return {fail: "Invalid Account Format!"}
+    if (!startSynchronization) return {fail: "synchronize first!"}
     while (!synchronized) await sleep (100)
     if (account in accountsImages) {
       let accountImageInfo = accountsImages[account]
       accountImageInfo.imageLink = CONFIG.ipfsGateway + accountImageInfo.imageHash
-      return {successfull: true, ...accountImageInfo}
+      return {successful: true, ...accountImageInfo}
     } else {
       return {fail: "Not Found"}
     }
@@ -57,28 +58,28 @@ const nanoProfile = (function () {
     if ( !("node" in CONFIG) ) return {error: "Config not found. Import config.json first!"}
     if (isNaN(delay) || delay == 0) return {error: "Invalid Delay!"}
     const firstSync = await synchronizeRegisters(callback)
-    if ("successfull" in firstSync) {
+    if ("successful" in firstSync) {
       loopSynchronize(delay, callback)
-      return {successfull: {accountsImagesFound: Object.keys(accountsImages).length, totalRegisteredBlocks: Object.keys(registered_blocks).length}}
+      return {successful: true, accountsImages: Object.keys(accountsImages).length, totalRegisteredBlocks: Object.keys(registered_blocks).length}
     } else {
-      return {fail: firstSync.error + ". For more details check console"}
+      return {fail: firstSync.fail + ". For more details check console"}
     }
   }
 
   function importConfig (getConfig) {
-    if (typeof getConfig !== "object") throw new Error ("Invalid input! Send an object.")
-    if ( !("trackerAccount" in getConfig) ) throw new Error ("trackerAccount not found in the config")
-    if ( !checkNanoAddress(getConfig.trackerAccount) ) throw new Error ("Invalid trackerAccount in the config file")
-    if ( !("imageCode" in getConfig) ) throw new Error ("imageCode not found in the config file")
-    if ( !("node" in getConfig) ) throw new Error ("node not found in the config file")
-    if ( !checkURL(getConfig.node) ) throw new Error ("Invalid node url in the config file")
-    if ( !("ipfsGateway" in getConfig) ) throw new Error ("ipfsGateway not found in the config file")
-    if ( !checkURL(getConfig.ipfsGateway) ) throw new Error ("Invalid ipfsGateway url in the config file")
+    if (typeof getConfig !== "object") return {"fail": "Invalid input! Send an object."}
+    if ( !("trackerAccount" in getConfig) ) return {"fail": "trackerAccount not found in the config"}
+    if ( !checkNanoAddress(getConfig.trackerAccount) ) return {"fail": "Invalid trackerAccount in the config file"}
+    if ( !("imageCode" in getConfig) ) return {"fail": "imageCode not found in the config file"}
+    if ( !("node" in getConfig) ) return {"fail": "node not found in the config file"}
+    if ( !checkURL(getConfig.node) ) return {"fail": "Invalid node url in the config file"}
+    if ( !("ipfsGateway" in getConfig) ) return {"fail": "ipfsGateway not found in the config file"}
+    if ( !checkURL(getConfig.ipfsGateway) ) return {"fail": "Invalid ipfsGateway url in the config file"}
     CONFIG.trackerAccount = getConfig.trackerAccount
     CONFIG.imageCode = getConfig.imageCode
     CONFIG.node = getConfig.node
     CONFIG.ipfsGateway = getConfig.ipfsGateway
-    return true
+    return {successful: true}
   }
 
   async function importBlacklistFromFile(file) {
@@ -88,7 +89,9 @@ const nanoProfile = (function () {
     } else {
       getJson = require(file)
     }
-    if ("error" in getJson) throw new Error ("error importing " + file + ": " + getJson.error)
+    if ("error" in getJson){
+      return {fail: "error importing " + file + ": " + getJson.error}
+    }
     return importBlacklist(getJson)
   }
 
@@ -105,13 +108,14 @@ const nanoProfile = (function () {
           if (inputsCheck[input](data[input][i])) {
             BLACKLIST[input].push(data[input][i])
           } else {
-            throw new Error ("Invalid " + input + ": " + data[input][i])
+            return {fail: "Invalid " + input + ": " + data[input][i]}
           }
         }
       } else {
-        throw new Error ("Invalid parameter: " + input)
+        return {fail: "Invalid parameter: " + input}
       }
     }
+    return {successful: true}
   }
 
   function checkBlacklist (data){
@@ -145,7 +149,7 @@ const nanoProfile = (function () {
       startSynchronization = true
       let blockInfoAllPromises = [], determineCurrentRegisterPromises = [], newAccountsImagesRegisters = []
       const register_transactions = await pending_filter (CONFIG.trackerAccount, CONFIG.imageCode, -1)
-      if ("error" in register_transactions) return {"error": register_transactions.error}
+      if ("error" in register_transactions) return {"fail": register_transactions.error}
       for (let blockN in register_transactions) {
         let block = register_transactions[blockN]
         if ( ! (block in registered_blocks) ) {
@@ -181,10 +185,10 @@ const nanoProfile = (function () {
       });
       await Promise.all(determineCurrentRegisterPromises)
       synchronized = true
-      return {"successfull": true}
+      return {"successful": true}
     } catch (err) {
       console.error (err)
-      return false
+      return {"fail": err}
     }
   }
 
