@@ -15,9 +15,7 @@ CORS(app)
 
 @app.route('/', methods=['GET', 'POST'])
 def api():
-    global synchronized
-    global registeredImages
-    global ipfs_storage_info
+    global synchronized, ipfs_storage_info
     if synchronized == False:
         return {"error": "Not synchronized yet"}
     try:
@@ -27,13 +25,14 @@ def api():
     if "account" in data:
         account = data.get("account").replace("xrb_", "nano_")
         if validateAccount(account):
-            if account in registeredImages:
-                ipfsHashImage = registeredImages[account]
-                print (ipfs_storage_info)
+            if account in registers and registers[account]["current"]["imageHash"] != "" and checkOnTheBlacklist(account) == False:
+                ipfsHashImage = registers[account]["current"]["imageHash"]
+                timestamp = registers[account]["current"]["local_timestamp"]
+                block = registers[account]["current"]["block"]
                 for file in ipfs_storage_info:
                     if ipfsHashImage == file["Hash"]:
                         imageSize = file["Size"]
-                return {"successfull": True, "imageHash": ipfsHashImage, "size": imageSize, "imageLink": CONFIG["ipfs_gateway"] + "/ipfs/" + ipfsHashImage}
+                return {"successfull": True, "account": account, "imageHash": ipfsHashImage, "blockRegister": block, "imageSize": imageSize, "imageLink": CONFIG["ipfs_gateway"] + "/ipfs/" + ipfsHashImage, "localTimestamp": timestamp}
             else:
                 return {"fail": "Not Found"}
         else:
@@ -62,20 +61,26 @@ def validateAccount (account):
 #block info contents
 def block_info (hash):
     try :
+        block = {}
         request = requests.post(CONFIG["nano_node"], json={"action": "block_info", "hash": hash, "json_block": "true"})
-        return request.json()["contents"]
+        if "contents" in request.json():
+            block = request.json()["contents"]
+            block["amount"] = request.json()["amount"]
+            block["hash"] = hash
+            block["local_timestamp"] = request.json()["local_timestamp"]
+        return block
     except Exception as err:
         print ("Error: " + str(err))
         return ""
 
 #filter specific pending transaction from some account
-def pending_filter (account, amount, count):
+def pending_filter (account, amounts, count):
     validTransactions = []
     try :
-        request = requests.post(CONFIG["nano_node"], json={"action": "pending", "account": account, "count": count, "threshold": amount})
+        request = requests.post(CONFIG["nano_node"], json={"action": "pending", "account": account, "count": count, "threshold": str(min([int(i) for i in CONFIG["image_code"]]))})
         blocks = request.json()["blocks"]
         for block in blocks:
-            if str(blocks[block]) == str(CONFIG["image_code"]):
+            if str(blocks[block]) in amounts:
                 validTransactions.append(block)
         return validTransactions
     except Exception as err:
@@ -93,22 +98,6 @@ def account_history (account):
     except Exception as err:
         print ("Error: " + str(err))
         return []
-
-#save dict with all accounts and their registers
-def synchronizeRegisters ():
-    global registered_blocks
-    global registeredImagesTransactions
-    register_transactions = pending_filter (CONFIG["tracker_account"], CONFIG["image_code"], -1)
-    for block in register_transactions:
-        if block not in registered_blocks:
-            transaction = block_info(block)
-            account = transaction["account"]
-            representative = transaction["representative"]
-            if account not in registeredImagesTransactions:
-                registeredImagesTransactions[account] = []
-            registeredImagesTransactions[account].append({"block": block, "image": representative})
-            registered_blocks.append(block)
-            print ("New block: " + block)
 
 def saveRegisters (json_data):
     with open(CONFIG["register_transactions_json"], 'w') as register_file:
@@ -172,34 +161,68 @@ def saveImage (threadName, ipfsHash, account):
     except Exception as err:
         print ("Error saving " + ipfsHash + ": " + str(err))
 
-def removeImage (ipfsHash):
-    global ipfsClient
-    print ("Removing old image: " + ipfsHash)
-    ipfsClient.pin.rm(ipfsHash)
-    ipfsClient.repo.gc()
+def removeAccountImage (account):
+    global ipfsClient, ipfs_storage_info
+    for fileInfo in ipfs_storage_info:
+        if account in fileInfo["accounts"]:
+            fileInfo["accounts"].remove(account)
+            if len(fileInfo["accounts"]) == 0:
+                print ("Removing image: " + fileInfo["Hash"])
+                ipfsClient.pin.rm(fileInfo["Hash"])
+                ipfsClient.repo.gc()
+                ipfs_storage_info.remove(fileInfo)
+    with open(CONFIG["ipfs_storage_json"], 'w') as ipfs_files_info:
+        ipfs_files_info.write(json.dumps(ipfs_storage_info))
 
-def determineLastRegister (account):
-    history = account_history(account)
-    for transaction in history:
-        if transaction["type"] == "send" and transaction["account"] == CONFIG["tracker_account"] and transaction["amount"] == CONFIG["image_code"]:
-            return transaction["hash"]
+def removeImage (ipfsHash):
+    global ipfsClient, ipfs_storage_info
+    for fileInfo in ipfs_storage_info:
+        if fileInfo["Hash"] == ipfsHash:
+            ipfs_storage_info.remove(fileInfo)
+            print ("Removing image: " + ipfsHash)
+            ipfsClient.pin.rm(ipfsHash)
+            ipfsClient.repo.gc()
+    with open(CONFIG["ipfs_storage_json"], 'w') as ipfs_files_info:
+        ipfs_files_info.write(json.dumps(ipfs_storage_info))
 
 def readSavedTransactions ():
-    global registeredImagesTransactions, registered_blocks
+    global registers, registered_blocks
     with open(CONFIG["register_transactions_json"]) as register_file:
-        registeredImagesTransactions = json.load(register_file)
-        for account in registeredImagesTransactions:
-            for register in registeredImagesTransactions[account]:
-                registered_blocks.append(register["block"])
+        registers = json.load(register_file)
+        for account in registers:
+            for register in registers[account]["registers"]:
+                registered_blocks[register["block"]] = {"account": account, "imageHash": register["imageHash"], "local_timestamp": register["local_timestamp"]}
 
 def readSavedIpfsImages ():
-    global ipfs_storage_info, registeredImages
+    global ipfs_storage_info
     with open(CONFIG["ipfs_storage_json"]) as ipfs_register:
         ipfs_storage_info = json.load(ipfs_register)
-        for file in ipfs_storage_info:
-            for account in file["accounts"]:
-                registeredImages[account] = file["Hash"]
-                print (account + ": " + file["Hash"])
+
+def checkOnTheBlacklist (account):
+    register = registers[account]["current"]
+    if account in BLACKLIST["accounts"]:
+        return True
+    if register["imageHash"] in BLACKLIST["hashs"]:
+        return True
+    if register["block"] in BLACKLIST["blocks"]:
+        return True
+    return False
+
+def removeBlacklistItems ():
+    global ipfs_storage_info
+    for fileInfo in ipfs_storage_info:
+        for account in fileInfo["accounts"]:
+            if (account in BLACKLIST["accounts"]):
+                removeAccountImage(account)
+
+        for block in BLACKLIST["blocks"]:
+            if (registered_blocks[block]["account"] in fileInfo["accounts"]):
+                removeAccountImage(registered_blocks[block]["account"])
+
+        if fileInfo["Hash"] in BLACKLIST["hashs"]:
+            removeImage(fileInfo["Hash"])
+
+
 
 def ipfsClientConnect ():
     global ipfsClient
@@ -211,54 +234,85 @@ def ipfsClientConnect ():
         print("Failed connecting to IPFS API: " + str(err))
         exit()
 
+def determineLastRegister (account):
+    history = account_history(account)
+    for transaction in history:
+        if transaction["type"] == "send" and transaction["account"] == CONFIG["tracker_account"] and transaction["amount"] in CONFIG["image_code"]:
+            return transaction["hash"]
+
+#save dict with all accounts and their registers
+def synchronizeRegisters ():
+    global registered_blocks, registers
+    register_transactions = pending_filter (CONFIG["tracker_account"], CONFIG["image_code"], -1)
+    for block in register_transactions:
+        if block not in registered_blocks:
+            transaction = block_info(block)
+            account = transaction["account"]
+            representative = transaction["representative"]
+            timestamp = transaction["local_timestamp"]
+            if account not in registers:
+                registers[account] = {"registers": [], "current": {"imageHash": "", "block": "", "local_timestamp": ""}}
+            registers[account]["registers"].append({"block": block, "imageHash": ipfsHashing(representative), "local_timestamp": timestamp})
+            registered_blocks[block] = {"account": account, "imageHash": ipfsHashing(representative), "local_timestamp": timestamp}
+            print ("New block: " + block)
+
+
 def main (threadName, val):
-    global synchronized, registeredImages, registeredImagesTransactions
+    global synchronized, registers
 
     ipfsClientConnect()
     readSavedTransactions()
     readSavedIpfsImages()
+    removeBlacklistItems()
+
+    print ("Synchronizing...")
 
     while (True):
-        registeredImagesTransactionsBefore = copy.deepcopy(registeredImagesTransactions)
+        registersBefore = copy.deepcopy(registers)
         synchronizeRegisters()
         synchronized = True
-        for account in registeredImagesTransactions:
-            if account not in registeredImagesTransactionsBefore:
-                registeredImagesTransactionsBefore[account] = []
-            newRegisters = compareLists(registeredImagesTransactions[account], registeredImagesTransactionsBefore[account]) #len(registeredImagesTransactions[account]) - len(registeredImagesTransactionsBefore[account])
+        for account in registers:
+            if account not in registersBefore:
+                registersBefore[account] = {"registers": [], "current": {}}
+            newRegisters = compareLists(registers[account]["registers"], registersBefore[account]["registers"])
             if (len(newRegisters)):
                 if len(newRegisters) == 1:
                     print ("1 New register: " + account)
-                    ipfsHashImage = ipfsHashing(newRegisters[0]["image"])
+                    transaction_register = newRegisters[0]
+                    ipfsHashImage = transaction_register["imageHash"]
+                    last_block_register = transaction_register["block"]
                 if len(newRegisters) > 1:
                     print ("Multiples registers: " + account)
-                    last_register = determineLastRegister(account)
-                    transaction_register = block_info(last_register)
+                    last_block_register = determineLastRegister(account)
+                    transaction_register = block_info(last_block_register)
                     ipfsHashImage = ipfsHashing(transaction_register["representative"])
-                if account not in registeredImages:
-                    registeredImages[account] = ""
-                if registeredImages[account] == ipfsHashImage and registeredImages[account] != "":
-                    print ("Nothing to do! The new image is the same as the previous one.")
-                if registeredImages[account] != ipfsHashImage:
-                    if registeredImages[account] != "":
-                        removeImage(registeredImages[account])
-                    registeredImages[account] = ipfsHashImage
-                    #saveImage(ipfsHashImage, account)
-                    try:
-                        _thread.start_new_thread(saveImage, ("saveImage_"+ipfsHashImage, ipfsHashImage, account))
-                    except Exception as err:
-                       print ("Error: unable to start thread. Reason: " + str(err))
-                saveRegisters(json.dumps(registeredImagesTransactions))
+
+                if registers[account]["current"]["imageHash"] != ipfsHashImage:
+                    if registers[account]["current"]["imageHash"] != "":
+                        removeAccountImage(account)
+                    if (account not in BLACKLIST["accounts"] and ipfsHashImage not in BLACKLIST["hashs"] and last_block_register not in BLACKLIST["blocks"]):
+                        try:
+                            _thread.start_new_thread(saveImage, ("saveImage_"+ipfsHashImage, ipfsHashImage, account))
+                        except Exception as err:
+                            print ("Error: unable to start saveImage thread. Reason: " + str(err))
+                    else:
+                        print ("Found on the Blacklist. The content will not be saved")
+                else:
+                    print ("Nothing to do. Old and new images are the same")
+
+                registers[account]["current"] = {"imageHash": ipfsHashImage, "block": last_block_register, "local_timestamp": transaction_register["local_timestamp"]}
+
+                saveRegisters(json.dumps(registers))
+
         sleep (CONFIG["sleep_synchronize"])
 
 ipfsClient = ""
 synchronized = False
-registered_blocks = []
-registeredImages = {}
-registeredImagesTransactions = {}
+registered_blocks = {}
+registers = {}
 ipfs_storage_info = []
 
-#Import config
+#Import config and blacklist
 try:
     with open('config.json') as configJSON:
         dataConfig = json.load(configJSON)
@@ -268,6 +322,7 @@ try:
         "image_code": dataConfig['image_code'],
         "max_image_size": dataConfig['max_image_size'],
         "max_storage_size": dataConfig['max_storage_size'],
+        "blacklist": dataConfig['blacklist'],
         "register_transactions_json": dataConfig['register_transactions_json'],
         "ipfs_storage_json": dataConfig['ipfs_storage_json'],
         "ipfs_node": dataConfig['ipfs_node'],
@@ -276,6 +331,13 @@ try:
         "api_access": dataConfig['api_access'],
         "api_port": dataConfig['api_port'],
         "sleep_synchronize": dataConfig['sleep_synchronize']
+    }
+    with open(CONFIG["blacklist"]) as blacklistSON:
+        dataBlacklist = json.load(blacklistSON)
+    BLACKLIST = {
+        "accounts": dataBlacklist["accounts"],
+        "blocks": dataBlacklist["blocks"],
+        "hashs": dataBlacklist["hashs"]
     }
 except Exception as err:
     print ("Error importing configs from config.json: " + str(err))
@@ -290,5 +352,5 @@ while 1:
    pass
 
 
-#example with curl:
+#example api request with curl:
 #curl -s --header "Content-Type: application/json" --request POST --data '{"account": "nano_35g1u9tcf93khx1hjdsdgo1i6eu4bty6fsc8zifo7yfn368i9nweg3zfbz5p"}' localhost:8088

@@ -1,15 +1,16 @@
 {
   "nano_node": "http://127.0.0.1:7076",
   "tracker_account": "nano_1nanoprofi1e7defau1t7account7tracker7image7registers1s4xjedf",
-  "image_code": "1315081206",
+  "image_code": ["131000000000000000000000000", "1315081206"],
   "max_image_size": 256000,
   "max_storage_size": 2000000000,
+  "blacklist": "blacklist.json",
   "register_transactions_json": "data/registers.json",
   "ipfs_storage_json": "data/ipfs_storage.json",
   "ipfs_node": "127.0.0.1",
   "ipfs_api_port": "5001",
-  "ipfs_gateway": "https://cloudflare-ipfs.com",
-  "api_access": "0.0.0.0",
+  "ipfs_gateway": "https://ipfs.io",
+  "api_access": "127.0.0.1",
   "api_port": "8088",
   "sleep_synchronize": 5
 }
