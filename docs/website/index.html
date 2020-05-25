@@ -20,7 +20,7 @@
         <h1>Nano Profile</h1>
         <h4>Bring your Nano account to life</h4>
           <p>We are much more than public keys!<br>
-          Nano Profile facilitates the Nano users experience,
+          Nano Profile is a descentralized protocol that facilitates the Nano users experience,
           allowing them to add images to their Nano account
           and identify their friends' account by the image in a simple and friendly way.
           </p>
@@ -32,7 +32,9 @@
         </div>
         <div style="width: 100%; height: 80px; display: flex; justify-content: space-around">
           <img src="img/nano_ipfs.png" width="180px" height="55px" style="align-self: center;"/>
-          <button style="width: 115px; font-size: 16px; height: 40px; padding: 10px; align-self: center;">Read More</button>
+          <a href="https://bit.ly/nanoprofile" target="_blank">
+            <button style="width: 115px; font-size: 16px; height: 40px; padding: 10px; align-self: center;">Read More</button>
+          </a>
         </div>
         <div style="width: 300px; margin: 14px auto; text-align: center">
           <h4>Test and starting using Now!</h4>
@@ -174,7 +176,7 @@
     <h2>Code / API</h2>
     <div class="sub">
       <div class="col">
-        <h3>Replicator and Client API</h3>
+        <h3>Replicator Node</h3>
         <h4>Python</h4>
         <p>With this API you will be able to obtain the images of registered Nano accounts without any middleman.</p>
         <p>Using your IPFS node, you keep images online on the network for other users.</p>
@@ -228,13 +230,12 @@
         <p>Gets accounts images with our central Nano Profile Server API</p>
         <p>There is no need to install anything</p>
         Example Request:
-        <p style="color:#3F3F4E; font-size: 14px;">curl -s --header "Content-Type: application/json" --request POST --data '{"account": "nano_35g1u9tcf93khx1hjdsdgo1i6eu4bty6fsc8zifo7yfn368i9nweg3zfbz5p"}' <strong>http://api.nanoprofile.online</strong></p>
+        <p style="color:#3F3F4E; font-size: 14px;">
+          curl -s --header "Content-Type: application/json" --request POST --data '{"account": "nano_35g1u9tcf93khx1hjdsdgo1i6eu4bty6fsc8zifo7yfn368i9nweg3zfbz5p"}' <strong>http://api.nanoprofile.online</strong>
+        </p>
         Response:
         <p style="color:#3F3F4E; font-size: 14px;">
-          {"successfull": true,
-          "imageHash": "QmaBvRuuYgX5nsJfKvLuJo3eDDTJUhuiUCwE7kT5gsbCgY",
-          "imageLink": "https://ipfs.io/ipfs/QmaBvRuuYgX5nsJfKvLuJo3eDDTJUhuiUCwE7kT5gsbCgY",
-          "size": 57589}
+          {"account":"nano_35g1u9tcf93khx1hjdsdgo1i6eu4bty6fsc8zifo7yfn368i9nweg3zfbz5p", "blockRegister":"709BE02EA0C4111B985A51FAA4F4D4D758AFCA6F8F0FF2972EAAC8CF6F420DB3", "imageHash":"QmaBvRuuYgX5nsJfKvLuJo3eDDTJUhuiUCwE7kT5gsbCgY", "imageLink":"https://ipfs.io/ipfs/QmaBvRuuYgX5nsJfKvLuJo3eDDTJUhuiUCwE7kT5gsbCgY", "imageSize":57589, "localTimestamp":"1589995691", "successful":true}
         </p>
       </div>
     </div>

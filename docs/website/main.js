@@ -206,8 +206,8 @@ async function getAccountImage () {
   const account = $(".findImageAccount .putAccount").val()
   const accountImageInfo = await nanoProfile.getAccountImage(account)
   let html = ""
-  if ("successfull" in accountImageInfo) {
-    html = '<strong>successfull: </strong><br><img class="accountImage" src="' + accountImageInfo.imageLink + '" />'
+  if ("successful" in accountImageInfo) {
+    html = '<strong>successful: </strong><br><img class="accountImage" src="' + accountImageInfo.imageLink + '" />'
   }
   if ("error" in accountImageInfo) {
     html = '<strong>Error: </strong>' + accountImageInfo.error
@@ -320,7 +320,6 @@ async function loadImagesRegisters (register) {
         $('.showRegisters .listRegisters').find(`[data-account='${register.account}']`).remove()
       }
       currentRegisters[register.account] = register
-      console.log (register)
       $('.registersInfo .current').text(Object.keys(currentRegisters).length)
       registerHTML = '<div class="imageRegister" \
                         data-account="' + register.account + '" \
@@ -381,20 +380,23 @@ async function importJSON (file) {
 async function main () {
   CONFIG = await importJSON("config.json")
   updatePageInfo()
-  await nanoProfile.importConfigFromFile("NanoProfile_client.js/config.json")
-  await nanoProfile.importBlacklistFromFile("blacklist.json")
-  const sync = await nanoProfile.synchronize(CONFIG.synchronizeDelay, loadImagesRegisters)
-  if ("successfull" in sync) {
-    synchronized = true
+  const loadConfig = await nanoProfile.importConfigFromFile("NanoProfile_client.js/config.json")
+  if ("fail" in loadConfig) alert ("Error importing config file: " +  loadConfig.fail)
+  const loadBlacklist = await nanoProfile.importBlacklistFromFile("blacklist.json")
+  if ("fail" in loadBlacklist) alert ("Error importing blacklist file: " + loadBlacklist.fail)
 
-    $(".listRegisters img.loading").css("display", "none")
-    $( "#fileElem" ).prop("disabled", false )
-    document.getElementById('get_file').onclick = function() {
-        document.getElementById('fileElem').click();
-    }
-  } else {
+  const sync = await nanoProfile.synchronize(CONFIG.synchronizeDelay, loadImagesRegisters)
+  if ("fail" in sync) {
     alert ("Error synchronizing: " + sync.fail)
+    return false
   }
+  synchronized = true
+  $(".listRegisters img.loading").css("display", "none")
+  $( "#fileElem" ).prop("disabled", false )
+  document.getElementById('get_file').onclick = function() {
+    document.getElementById('fileElem').click();
+  }
+
 }
 
 
