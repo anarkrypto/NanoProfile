@@ -48,10 +48,10 @@ async function main () {
   const loadConfig = await nanoProfile.importConfigFromFile("./config.json")
   if ("fail" in loadConfig) throw new Error ("Error importing config: " + loadConfig.fail)
   console.log (nanoProfile.CONFIG)
-  
+
   const loadBlacklist = await nanoProfile.importBlacklistFromFile("blacklist.json")
   if ("fail" in loadBlacklist) throw new Error ("Error importing blacklist file: " + loadBlacklist.fail)
-                  
+
   const sync = await nanoProfile.synchronize(5, callbackSync)
   if ("successful" in sync) {
       console.log ("Sucessfully synchronized!")
@@ -65,7 +65,7 @@ async function main () {
   //returns: {"successful": true, "block": "709BE02EA0C4111B985A51FAA4F4D4D758AFCA6F8F0FF2972EAAC8CF6F420DB3", "imageHash": "QmaBvRuuYgX5nsJfKvLuJo3eDDTJUhuiUCwE7kT5gsbCgY", "local_timestamp": "1589995691", "imageLink": "https://ipfs.io/ipfs/QmaBvRuuYgX5nsJfKvLuJo3eDDTJUhuiUCwE7kT5gsbCgY"}
 
   const registerNewImage = nanoProfile.registerImage("QmaBvRuuYgX5nsJfKvLuJo3eDDTJUhuiUCwE7kT5gsbCgY")
-  //returns: {destination: "nano_1nanoprofi1e7defau1t7account7tracker7image7registers1s4xjedf", amount: "131000000000000000000000000", representative: "nano_3e1hscejr79qpw4cfg3r9wfzxqzmufrs7mwuoot5srw4nopi6e4jsfa6w3ze"}
+  //returns: {destination: "nano_1nanoprofi1e7defau1t7account7tracker7image7registerr4twum9q3", amount: "131000000000000000000000000", representative: "nano_3e1hscejr79qpw4cfg3r9wfzxqzmufrs7mwuoot5srw4nopi6e4jsfa6w3ze"}
 }
 
 main()
@@ -75,14 +75,14 @@ main()
 ### Client Functions:
 
   - #### nanoProfile.importConfig(objectType)
-  
+
     Imports NanoProfile client config from an object
-    
-    Example: 
+
+    Example:
     ```javascript
        const config =  { "node": "http://127.0.0.1:7076",
                          "imageCode": ["131000000000000000000000000", "1315081206"],
-                         "trackerAccount": "nano_1nanoprofi1e7defau1t7account7tracker7image7registers1s4xjedf",
+                         "trackerAccount": "nano_1nanoprofi1e7defau1t7account7tracker7image7registerr4twum9q3",
                          "ipfsGateway": "https://ipfs.io/ipfs/"
                        }
 
@@ -90,18 +90,18 @@ main()
        if ("fail" in loadConfig) throw new Error ("Error importing config: " + loadConfig.fail)
      ```
   - #### nanoProfile.importConfigFromFile(filenameJSON)
-  
+
     Imports NanoProfile client config from a JSON file
-  
+
     Example:
       ```javascript
        const loadConfig = await nanoProfile.importConfigFromFile("./config.json")
        if ("fail" in loadConfig) throw new Error ("Error importing config file: " + loadConfig.fail)
      ```
   - #### nanoProfile.CONFIG
-  
+
     Returns the imported config
-  
+
     Example:
       ```javascript
         console.log(nanoProfile.CONFIG)
@@ -110,54 +110,54 @@ main()
       ```json
         { "node": "http://127.0.0.1:7076",
            "imageCode": ["131000000000000000000000000", "1315081206"],
-           "trackerAccount": "nano_1nanoprofi1e7defau1t7account7tracker7image7registers1s4xjedf",
+           "trackerAccount": "nano_1nanoprofi1e7defau1t7account7tracker7image7registerr4twum9q3",
            "ipfsGateway": "https://ipfs.io/ipfs/"
          }
       ```
   - #### nanoProfile.importBlacklist(blacklistObject)
-  
+
      Imports the blacklist from an object
-  
+
      Example:
       ```javascript
           //example 1 - account:
           const blacklist = {accounts: ["nano_35g1u9tcf93khx1hjdsdgo1i6eu4bty6fsc8zifo7yfn368i9nweg3zfbz5p"]}
-          
+
          //example 2 - IPFS imageHash
           const blacklist = {hashs: ["QmaBvRuuYgX5nsJfKvLuJo3eDDTJUhuiUCwE7kT5gsbCgY", "QmeoAig3dpRuBGpK5H8KennyEdadeUsBwFAc2WLKbfnG45"]}
-          
+
          //example 3 - Registers blocks
           const blacklist = {blocks: ["709BE02EA0C4111B985A51FAA4F4D4D758AFCA6F8F0FF2972EAAC8CF6F420DB3"]}
-          
+
          //example 4 - All together:
           const blacklist = {accounts: ["nano_35g1u9tcf93khx1hjdsdgo1i6eu4bty6fsc8zifo7yfn368i9nweg3zfbz5p"], hashs: ["QmeoAig3dpRuBGpK5H8KennyEdadeUsBwFAc2WLKbfnG45"], blocks: ["709BE02EA0C4111B985A51FAA4F4D4D758AFCA6F8F0FF2972EAAC8CF6F420DB3"]}
-                      
+
           //import to blacklist
           const loadBlacklist = await nanoProfile.importBlacklist(blacklist)
           if ("fail" in loadBlacklist) alert ("Error importing blacklist: " + loadBlacklist.fail)
       ```
-        
+
   - #### nanoProfile.importBlacklistFromFile(filenameJSON)
-  
+
      Imports the blacklist from a JSON file
-  
+
      Example:
       ```javascript
           const loadBlacklist = await nanoProfile.importBlacklistFromFile("blacklist.json")
           if ("fail" in loadBlacklist) throw new Error ("Error importing blacklist file: " + loadBlacklist.fail)
        ```
-  
+
   - #### nanoProfile.synchronize(delay, callbackFunction)
-  
+
       Synchronizes the registers in your client with the tracker account, using the Nano node.
-      
-      
-      
-      The first parameter (delay) will be the time between the search for new records and must be represented in seconds. 
+
+
+
+      The first parameter (delay) will be the time between the search for new records and must be represented in seconds.
       For example, if you choose 5, new blocks will be searched every 5 seconds. This process is continuous, you only need to start synchronization once
-      
+
       You can use a function (callback) to receive the new blocks.
-  
+
       Example:
       ```javascript
         const sync = await nanoProfile.synchronize(5, callback)
@@ -169,52 +169,52 @@ main()
           throw new Error ("Error synchronizing: " + sync.fail)
         }
       ````
-      
+
   - #### nanoProfile.getAccountImage (nanoAddress)
-  
+
     Search for an image record in the chosen account
-  
+
      Example:
      ```javascript
        const image = await nanoProfile.getAccountImage("nano_35g1u9tcf93khx1hjdsdgo1i6eu4bty6fsc8zifo7yfn368i9nweg3zfbz5p")
      ```
-     
+
      Sucessfull Return - Image Register Found in this account
-     
+
      ```json
-      { 
-        "successful": true, "block": "709BE02EA0C4111B985A51FAA4F4D4D758AFCA6F8F0FF2972EAAC8CF6F420DB3", 
-        "imageHash": "QmaBvRuuYgX5nsJfKvLuJo3eDDTJUhuiUCwE7kT5gsbCgY", 
-        "local_timestamp": "1589995691", 
+      {
+        "successful": true, "block": "709BE02EA0C4111B985A51FAA4F4D4D758AFCA6F8F0FF2972EAAC8CF6F420DB3",
+        "imageHash": "QmaBvRuuYgX5nsJfKvLuJo3eDDTJUhuiUCwE7kT5gsbCgY",
+        "local_timestamp": "1589995691",
         "imageLink": "https://ipfs.io/ipfs/QmaBvRuuYgX5nsJfKvLuJo3eDDTJUhuiUCwE7kT5gsbCgY"
       }
      ```
-     
+
      Fail Return = Image Register not found or was filtered by the blacklist
      ```json
         {"fail": "Not Found"}
      ```
   - #### nanoProfile.registerImage(imageHashIPFS)
-  
+
     Returns the destination account (tracker account), representative and amount for you to register the selected image hash in your account.
     You just need to make a new transaction with such data.
-  
+
     Example:
     ```javascript
      const registerNewImage = nanoProfile.registerImage("QmaBvRuuYgX5nsJfKvLuJo3eDDTJUhuiUCwE7kT5gsbCgY")
     ```
-    Returns: 
+    Returns:
     ```json
-      { "destination": "nano_1nanoprofi1e7defau1t7account7tracker7image7registers1s4xjedf", 
-        "amount": "131000000000000000000000000", 
+      { "destination": "nano_1nanoprofi1e7defau1t7account7tracker7image7registerr4twum9q3",
+        "amount": "131000000000000000000000000",
         "representative": "nano_3e1hscejr79qpw4cfg3r9wfzxqzmufrs7mwuoot5srw4nopi6e4jsfa6w3ze"
       }
     ```
-    
+
   - #### nanoProfile.checkNanoAddress(nanoAddress)
-  
+
     Checks if a specific Nano address is valid
-  
+
     Example
     ```javascript
       if (nanoProfile.checkNanoAddress("nano_35g1u9tcf93khx1hjdsdgo1i6eu4bty6fsc8zifo7yfn368i9nweg3zfbz5p")) {
@@ -223,11 +223,11 @@ main()
         console.log ("Invalid account")
       }
     ```
-      
+
   - #### nanoProfile.checkIpfsHash(hashIPFS)
-  
+
     Checks if a specific IPFS hash is valid
-    
+
     Example:
     ```javascript
       if (nanoProfile.checkIpfsHash("QmaBvRuuYgX5nsJfKvLuJo3eDDTJUhuiUCwE7kT5gsbCgY")) {
@@ -236,11 +236,11 @@ main()
         console.log ("Invalid hash")
       }
     ```
-    
-    
+
+
  <p align="center">    
     <br><br>
-   Donate Nano to this project: 
+   Donate Nano to this project:
     <br>
    <img src="https://ipfs.io/ipfs/QmNPPmsMvieRrpimUWLDtw7N8ouydnbjchh718iWYN3uqb" />
    <br>

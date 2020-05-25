@@ -22,12 +22,12 @@ https://docs.ipfs.io/introduction/usage/
 
 Install dependencies (Linux debian-based systems):
 
-```bash 
-    sudo apt intall git python3 python3-pip 
+```bash
+    sudo apt intall git python3 python3-pip
 ```
 
 Clone rep:
-```bash 
+```bash
     git clone https://github.com/anarkrypto/NanoProfile.git
 ```
 
@@ -45,7 +45,7 @@ Some variables can be edited as needed.
 
 - nano_node: RPC address of a Node Nano >= v19.0 (usually [::1]:7076 or 127.0.0.1:7076). If you are using docker to run the Nano node, it will probably be [::1]:7076
 
-- tracker_account: Account to which transactions of image registers are sent, allowing replicators to find them. Default: nano_1nanoprofi1e7defau1t7account7tracker7image7registers1s4xjedf
+- tracker_account: Account to which transactions of image registers are sent, allowing replicators to find them. Default: nano_1nanoprofi1e7defau1t7account7tracker7image7registerr4twum9q3
 
 - image_code: Codes in raws that indetify the image registration transaction.
 
@@ -114,7 +114,7 @@ Fail: Account Register Not found
 - localTimeStamp: The time and date when the Nano node of the replicator received the image register transaction, formated in unix timestamp epoch format. This value can vary from node to node, since the Nano network is asynchronous, but it brings something very close if the Nano node was connected and synchronized when the user registered his image.
 
 
-### Blacklists: 
+### Blacklists:
 
 To allow control of the content hosted by the Replicators, a self-moderation system based on blacklist is available here.
 
