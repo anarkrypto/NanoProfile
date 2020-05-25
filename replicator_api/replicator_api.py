@@ -32,7 +32,7 @@ def api():
                 for file in ipfs_storage_info:
                     if ipfsHashImage == file["Hash"]:
                         imageSize = file["Size"]
-                return {"successfull": True, "account": account, "imageHash": ipfsHashImage, "blockRegister": block, "imageSize": imageSize, "imageLink": CONFIG["ipfs_gateway"] + "/ipfs/" + ipfsHashImage, "localTimestamp": timestamp}
+                return {"successful": True, "account": account, "imageHash": ipfsHashImage, "blockRegister": block, "imageSize": imageSize, "imageLink": CONFIG["ipfs_gateway"] + "/ipfs/" + ipfsHashImage, "localTimestamp": timestamp}
             else:
                 return {"fail": "Not Found"}
         else:
@@ -221,7 +221,6 @@ def removeBlacklistItems ():
 
         if fileInfo["Hash"] in BLACKLIST["hashs"]:
             removeImage(fileInfo["Hash"])
-
 
 
 def ipfsClientConnect ():
