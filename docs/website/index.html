@@ -1,14 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
-  <head>
-
-	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8">
   <title>Nano Profile</title>
   <link rel="shortcut icon" href="img/favicon.ico" />
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -17,47 +13,63 @@
   <div class="container" id="apresentation">
     <div class="sub">
       <div class="about">
-        <h1>Nano Profile</h1>
-        <h4>Bring your Nano account to life</h4>
+          <h1>Nano Profile</h1>
+          <h4>Bring your Nano account to life</h4>
           <p>We are much more than public keys!<br>
-          Nano Profile is a descentralized protocol that facilitates the Nano users experience,
-          allowing them to add images to their Nano account
-          and identify their friends' account by the image in a simple and friendly way.
-          </p>
-        <div>
-          <span>
-            And all of this in a safe and decentralized mechanism.
-            <br>Using Nano + the P2P network IPFS !
-          </span>
-        </div>
-        <div style="width: 100%; height: 80px; display: flex; justify-content: space-around">
-          <img src="img/nano_ipfs.png" width="180px" height="55px" style="align-self: center;"/>
-          <a href="https://bit.ly/nanoprofile" target="_blank">
-            <button style="width: 115px; font-size: 16px; height: 40px; padding: 10px; align-self: center;">Read More</button>
-          </a>
-        </div>
-        <div style="width: 300px; margin: 14px auto; text-align: center">
-          <h4>Test and starting using Now!</h4>
-          <a href="#demo"><button>Demo</button></a>
-          <a href="#api"><button>API</button></a>
-        </div>
+					Nano Profile is a new decentralized protocol to allow every user on the Nano network to have a profile picture!
+					That way, when you add a friend's wallet, you automatically get his profile picture!</p>
+          <p>This provides an excellent user experience for nano wallets!</p>
+
+					<p>And all of this in a safe and decentralized mechanism.
+						Using a hybrid model, with the image registers saved
+						<strong style="color: white">onchain</strong> on the Nano
+						and the image content saved <strong style="color:white">offchain</strong> on the P2P network IPFS.
+					</p>
+        <br>
+				<div style="width: 100%">
+					<div style="width: 300px; margin: 14px auto; text-align: center">
+						<h4>Test and starting using Now!</h4>
+						<a href="#demo"><button>Demo</button></a>
+						<a href="#api"><button>API</button></a>
+					</div>
+				</div>
       </div>
       <div class="sliderPreview">
-        <img src="img/NanoProfile_logo.png" style="width: 300px; height: 240px">
+        <img src="img/NanoProfile_logo.png" style="width: 330px; height: 260px">
       </div>
     </div>
   </div>
+
+	<div class="container">
+		<h2>How it Works</h2>
+		<div class="sub" style="text-align: center;">
+			<div style="width: 100%">
+				<video style="width: 100%; max-width: 800px; border-radius: 15px;" controls>
+					<source src="/video/whatIsNanoProfile.webm" type="video/webm">
+							Your browser does not support the video tag.
+				</video>
+			</div>
+			<br><br>
+			<a href="https://bit.ly/nanoprofile" target="_blank">
+				<button style="width: 135px; align-self: center;">Read More</button>
+			</a>
+		</div>
+
+	</div>
 
   <div class="container" id="demo" style="position:relative">
     <h2>Client Demo</h2>
     <div class="sub">
       <div class="uploadImage">
-        <h3>Register Your Account Image</h3>
+        <h3>Register your Nano Profile picture</h3>
         <div class="yourProfilePicture">
             <img src="/img/user.png" />
             <input type="button" id="get_file" value="Upload New Image">
         </div>
-        <input type="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)" disabled>
+        <label class="custom-file-upload">
+          <input type="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)" disabled>
+          Choose Image
+        </label>
         <p>Max File Size: <span class="maxSize">0</span>
           <br>Acccepted Formats: <span class="acceptedFormats">PNG, JPEG, JPG, GIF</span>
         </p>
@@ -146,7 +158,7 @@
       <div class="close" onclick="hideModal('donateModal')">X</div>
       <h3>Please, Donate</h3>
       <div class="qr">
-        <img src="/img/donate_qr.png" />
+        <img src="/img/donate_qr_white.png" />
       </div>
       <p>nano_35g1u9tcf93khx1hjdsdgo1i6eu4bty6fsc8zifo7yfn368i9nweg3zfbz5p</p>
       <a href="nano:nano_35g1u9tcf93khx1hjdsdgo1i6eu4bty6fsc8zifo7yfn368i9nweg3zfbz5p" target="_blank"><button style="width: 160px">Open in Wallet</button></a>
@@ -165,6 +177,7 @@
             <li>I declare to know that the image will be permanently stored on a P2P network and there is no guarantee that it can be deleted.</li>
             <li>I declare to understand that certain images can be disqualified by the nodes in a decentralized way and the record including Nano account, block and hash of the image permanently recorded in a shared blacklist. Legal sanctions can be adopted arbitrarily in cases of illegal content.</li>
             <li>NanoProfile is a decentralized solution, but not 100% anonymous. Your Nano wallet, your transaction history and your used IP can be recorded arbitrarily by any node on the network.</li>
+            <li>Your image can be used to promote the NanoProfile</li>
           </ul>
         </div>
         <button id="decline">Decline</button>
@@ -230,12 +243,12 @@
         <p>Gets accounts images with our central Nano Profile Server API</p>
         <p>There is no need to install anything</p>
         Example Request:
-        <p style="color:#3F3F4E; font-size: 14px;">
+        <p class="request">
           curl -s --header "Content-Type: application/json" --request POST --data '{"account": "nano_35g1u9tcf93khx1hjdsdgo1i6eu4bty6fsc8zifo7yfn368i9nweg3zfbz5p"}' <strong>http://api.nanoprofile.online</strong>
         </p>
         Response:
-        <p style="color:#3F3F4E; font-size: 14px;">
-          {"account":"nano_35g1u9tcf93khx1hjdsdgo1i6eu4bty6fsc8zifo7yfn368i9nweg3zfbz5p", "blockRegister":"709BE02EA0C4111B985A51FAA4F4D4D758AFCA6F8F0FF2972EAAC8CF6F420DB3", "imageHash":"QmaBvRuuYgX5nsJfKvLuJo3eDDTJUhuiUCwE7kT5gsbCgY", "imageLink":"https://ipfs.io/ipfs/QmaBvRuuYgX5nsJfKvLuJo3eDDTJUhuiUCwE7kT5gsbCgY", "imageSize":57589, "localTimestamp":"1589995691", "successful":true}
+        <p class="response">
+          {"successful":true, "account":"nano_35g1u9tcf93khx1hjdsdgo1i6eu4bty6fsc8zifo7yfn368i9nweg3zfbz5p", "blockRegister":"709BE02EA0C4111B985A51FAA4F4D4D758AFCA6F8F0FF2972EAAC8CF6F420DB3", "imageHash":"QmaBvRuuYgX5nsJfKvLuJo3eDDTJUhuiUCwE7kT5gsbCgY", "imageLink":"https://ipfs.io/ipfs/QmaBvRuuYgX5nsJfKvLuJo3eDDTJUhuiUCwE7kT5gsbCgY", "imageSize":57589, "localTimestamp":"1589995691"}
         </p>
       </div>
     </div>
@@ -249,26 +262,26 @@
       </li>
       <li class="fItem">
         <a href="https://discord.com/invite/ADQ9hcf" target="_blank">
-          <svg class="i" style="width: 90px;" id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 245 240"><style>.st0{fill:#FFFFFF;}</style><path class="st0" d="M104.4 103.9c-5.7 0-10.2 5-10.2 11.1s4.6 11.1 10.2 11.1c5.7 0 10.2-5 10.2-11.1.1-6.1-4.5-11.1-10.2-11.1zM140.9 103.9c-5.7 0-10.2 5-10.2 11.1s4.6 11.1 10.2 11.1c5.7 0 10.2-5 10.2-11.1s-4.5-11.1-10.2-11.1z"/><path class="st0" d="M189.5 20h-134C44.2 20 35 29.2 35 40.6v135.2c0 11.4 9.2 20.6 20.5 20.6h113.4l-5.3-18.5 12.8 11.9 12.1 11.2 21.5 19V40.6c0-11.4-9.2-20.6-20.5-20.6zm-38.6 130.6s-3.6-4.3-6.6-8.1c13.1-3.7 18.1-11.9 18.1-11.9-4.1 2.7-8 4.6-11.5 5.9-5 2.1-9.8 3.5-14.5 4.3-9.6 1.8-18.4 1.3-25.9-.1-5.7-1.1-10.6-2.7-14.7-4.3-2.3-.9-4.8-2-7.3-3.4-.3-.2-.6-.3-.9-.5-.2-.1-.3-.2-.4-.3-1.8-1-2.8-1.7-2.8-1.7s4.8 8 17.5 11.8c-3 3.8-6.7 8.3-6.7 8.3-22.1-.7-30.5-15.2-30.5-15.2 0-32.2 14.4-58.3 14.4-58.3 14.4-10.8 28.1-10.5 28.1-10.5l1 1.2c-18 5.2-26.3 13.1-26.3 13.1s2.2-1.2 5.9-2.9c10.7-4.7 19.2-6 22.7-6.3.6-.1 1.1-.2 1.7-.2 6.1-.8 13-1 20.2-.2 9.5 1.1 19.7 3.9 30.1 9.6 0 0-7.9-7.5-24.9-12.7l1.4-1.6s13.7-.3 28.1 10.5c0 0 14.4 26.1 14.4 58.3 0 0-8.5 14.5-30.6 15.2z"/></svg>
+          <svg class="i" style="width: 90px;" id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 245 240"><style>.st0{fill:#c6c9cd;}</style><path class="st0" d="M104.4 103.9c-5.7 0-10.2 5-10.2 11.1s4.6 11.1 10.2 11.1c5.7 0 10.2-5 10.2-11.1.1-6.1-4.5-11.1-10.2-11.1zM140.9 103.9c-5.7 0-10.2 5-10.2 11.1s4.6 11.1 10.2 11.1c5.7 0 10.2-5 10.2-11.1s-4.5-11.1-10.2-11.1z"/><path class="st0" d="M189.5 20h-134C44.2 20 35 29.2 35 40.6v135.2c0 11.4 9.2 20.6 20.5 20.6h113.4l-5.3-18.5 12.8 11.9 12.1 11.2 21.5 19V40.6c0-11.4-9.2-20.6-20.5-20.6zm-38.6 130.6s-3.6-4.3-6.6-8.1c13.1-3.7 18.1-11.9 18.1-11.9-4.1 2.7-8 4.6-11.5 5.9-5 2.1-9.8 3.5-14.5 4.3-9.6 1.8-18.4 1.3-25.9-.1-5.7-1.1-10.6-2.7-14.7-4.3-2.3-.9-4.8-2-7.3-3.4-.3-.2-.6-.3-.9-.5-.2-.1-.3-.2-.4-.3-1.8-1-2.8-1.7-2.8-1.7s4.8 8 17.5 11.8c-3 3.8-6.7 8.3-6.7 8.3-22.1-.7-30.5-15.2-30.5-15.2 0-32.2 14.4-58.3 14.4-58.3 14.4-10.8 28.1-10.5 28.1-10.5l1 1.2c-18 5.2-26.3 13.1-26.3 13.1s2.2-1.2 5.9-2.9c10.7-4.7 19.2-6 22.7-6.3.6-.1 1.1-.2 1.7-.2 6.1-.8 13-1 20.2-.2 9.5 1.1 19.7 3.9 30.1 9.6 0 0-7.9-7.5-24.9-12.7l1.4-1.6s13.7-.3 28.1 10.5c0 0 14.4 26.1 14.4 58.3 0 0-8.5 14.5-30.6 15.2z"/></svg>
         </a>
-        <h4>Follow Us On Discord</h4>
+        <h4>Join our Discord channel</h4>
       </li>
       <li class="fItem">
-        <h4>Build for Nano Build Off</h4>
+        <h4>Made for <a href="https://nanobuildoff.com/" target="_blank">Nano Build Off</a></h4>
         <p>by <span class="anarkrypto">Anarkrypto</span></p>
         <div class="social-list">
           <ul class="ul_social-list">
             <li>
               <a href="https://github.com/anarkrypto" target="_blank">
                 <i class="social-icon">
-                  <svg role="img" aria-label="GitHub" focusable="false" style="height: 2.5em; width: 2.5em; display: block; fill: white;" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path></svg>
+                  <svg role="img" aria-label="GitHub" focusable="false" style="height: 2.5em; width: 2.5em; display: block; fill: #c6c9cd;" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path></svg>
                 </i>
               </a>
             </li>
             <li>
               <a href="https://www.reddit.com/user/anarkrypto/" target="_blank">
                 <i class="social-icon">
-                  <svg role="img" aria-label="Reddit" focusable="false" style="height: 2.7em; width: 2.8em; display: block; fill: white;" viewBox="0 0 24 24" mlns="http://www.w3.org/2000/svg"><path d="m21.325 9.308c-.758 0-1.425.319-1.916.816-1.805-1.268-4.239-2.084-6.936-2.171l1.401-6.406 4.461 1.016c0 1.108.89 2.013 1.982 2.013 1.113 0 2.008-.929 2.008-2.038s-.889-2.038-2.007-2.038c-.779 0-1.451.477-1.786 1.129l-4.927-1.108c-.248-.067-.491.113-.557.365l-1.538 7.062c-2.676.113-5.084.928-6.895 2.197-.491-.518-1.184-.837-1.942-.837-2.812 0-3.733 3.829-1.158 5.138-.091.405-.132.837-.132 1.268 0 4.301 4.775 7.786 10.638 7.786 5.888 0 10.663-3.485 10.663-7.786 0-.431-.045-.883-.156-1.289 2.523-1.314 1.594-5.115-1.203-5.117zm-15.724 5.41c0-1.129.89-2.038 2.008-2.038 1.092 0 1.983.903 1.983 2.038 0 1.109-.89 2.013-1.983 2.013-1.113.005-2.008-.904-2.008-2.013zm10.839 4.798c-1.841 1.868-7.036 1.868-8.878 0-.203-.18-.203-.498 0-.703.177-.18.491-.18.668 0 1.406 1.463 6.07 1.488 7.537 0 .177-.18.491-.18.668 0 .207.206.207.524.005.703zm-.041-2.781c-1.092 0-1.982-.903-1.982-2.011 0-1.129.89-2.038 1.982-2.038 1.113 0 2.008.903 2.008 2.038-.005 1.103-.895 2.011-2.008 2.011z"/></svg>
+                  <svg role="img" aria-label="Reddit" focusable="false" style="height: 2.7em; width: 2.8em; display: block; fill: #c6c9cd;" viewBox="0 0 24 24" mlns="http://www.w3.org/2000/svg"><path d="m21.325 9.308c-.758 0-1.425.319-1.916.816-1.805-1.268-4.239-2.084-6.936-2.171l1.401-6.406 4.461 1.016c0 1.108.89 2.013 1.982 2.013 1.113 0 2.008-.929 2.008-2.038s-.889-2.038-2.007-2.038c-.779 0-1.451.477-1.786 1.129l-4.927-1.108c-.248-.067-.491.113-.557.365l-1.538 7.062c-2.676.113-5.084.928-6.895 2.197-.491-.518-1.184-.837-1.942-.837-2.812 0-3.733 3.829-1.158 5.138-.091.405-.132.837-.132 1.268 0 4.301 4.775 7.786 10.638 7.786 5.888 0 10.663-3.485 10.663-7.786 0-.431-.045-.883-.156-1.289 2.523-1.314 1.594-5.115-1.203-5.117zm-15.724 5.41c0-1.129.89-2.038 2.008-2.038 1.092 0 1.983.903 1.983 2.038 0 1.109-.89 2.013-1.983 2.013-1.113.005-2.008-.904-2.008-2.013zm10.839 4.798c-1.841 1.868-7.036 1.868-8.878 0-.203-.18-.203-.498 0-.703.177-.18.491-.18.668 0 1.406 1.463 6.07 1.488 7.537 0 .177-.18.491-.18.668 0 .207.206.207.524.005.703zm-.041-2.781c-1.092 0-1.982-.903-1.982-2.011 0-1.129.89-2.038 1.982-2.038 1.113 0 2.008.903 2.008 2.038-.005 1.103-.895 2.011-2.008 2.011z"/></svg>
 
                 </i>
               </a>
@@ -276,7 +289,7 @@
             <li>
               <a href="https://twitter.com/anarkrypto" target="_blank">
                 <i class="social-icon">
-                  <svg viewBox="0 0 32 32" role="img" aria-label="Twitter" focusable="false" style="height: 2.7em; width: 2.7em; display: block; fill: white;"><path d="m31 6.36c-1.16.49-2.32.82-3.55.95 1.29-.76 2.22-1.87 2.72-3.38a13.05 13.05 0 0 1 -3.91 1.51c-1.23-1.28-2.75-1.94-4.51-1.94-3.41 0-6.17 2.73-6.17 6.12 0 .49.07.95.17 1.38-4.94-.23-9.51-2.6-12.66-6.38-.56.95-.86 1.97-.86 3.09 0 2.07 1.03 3.91 2.75 5.06-1-.03-1.92-.3-2.82-.76v.07c0 2.89 2.12 5.42 4.94 5.98-.63.17-1.16.23-1.62.23-.3 0-.7-.03-1.13-.13a6.07 6.07 0 0 0 5.74 4.24c-2.22 1.74-4.78 2.63-7.66 2.63-.56 0-1.06-.03-1.43-.1 2.85 1.84 6 2.76 9.41 2.76 7.29 0 12.83-4.01 15.51-9.3 1.36-2.66 2.02-5.36 2.02-8.09v-.46c-.03-.17-.03-.3-.03-.33a12.66 12.66 0 0 0 3.09-3.16" fill-rule="evenodd"></path></svg>
+                  <svg viewBox="0 0 32 32" role="img" aria-label="Twitter" focusable="false" style="height: 2.7em; width: 2.7em; display: block; fill: #c6c9cd;"><path d="m31 6.36c-1.16.49-2.32.82-3.55.95 1.29-.76 2.22-1.87 2.72-3.38a13.05 13.05 0 0 1 -3.91 1.51c-1.23-1.28-2.75-1.94-4.51-1.94-3.41 0-6.17 2.73-6.17 6.12 0 .49.07.95.17 1.38-4.94-.23-9.51-2.6-12.66-6.38-.56.95-.86 1.97-.86 3.09 0 2.07 1.03 3.91 2.75 5.06-1-.03-1.92-.3-2.82-.76v.07c0 2.89 2.12 5.42 4.94 5.98-.63.17-1.16.23-1.62.23-.3 0-.7-.03-1.13-.13a6.07 6.07 0 0 0 5.74 4.24c-2.22 1.74-4.78 2.63-7.66 2.63-.56 0-1.06-.03-1.43-.1 2.85 1.84 6 2.76 9.41 2.76 7.29 0 12.83-4.01 15.51-9.3 1.36-2.66 2.02-5.36 2.02-8.09v-.46c-.03-.17-.03-.3-.03-.33a12.66 12.66 0 0 0 3.09-3.16" fill-rule="evenodd"></path></svg>
                 </i>
               </a>
             </li>
@@ -294,7 +307,7 @@
 <script type="text/javascript" src="utils/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="utils/buffer.js"></script>
 <script type="text/javascript" src="utils/ipfs-http-client.js"></script>
-<script type="text/javascript" src="ipfs.js"></script>
+<script type="text/javascript" src="ipfs-upload.js"></script>
 <script type="text/javascript" src="utils/qrcode.js"></script>
 <script type="text/javascript" src="NanoProfile_client.js/blake2b.js"></script>
 <script type="text/javascript" src="NanoProfile_client.js/NanoProfile_client.js"></script>

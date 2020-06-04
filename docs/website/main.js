@@ -69,16 +69,16 @@ function handleFiles(files){
 
 async function imageSlider() {
   const directory = "img/"
-  const images = {"NanoProfile_logo.png": {width: 300, height: 240 }, "nanoprofile1.png": {width: 200, height: 400 }, "nanoprofile2.png": {width: 200, height: 400 }}
+  const images = {"exampleApp1.png": {width: 330, height: 430 }, "exampleApp2.png": {width: 250, height: 430 }, "NanoProfile_logo.png": {width: 330, height: 260 }}
   while (true) {
     for (image in images) {
+      await sleep(8000)
       $('.sliderPreview img').fadeOut(500)
-      await sleep (400)
+      await sleep (550)
       $('.sliderPreview img').css("width", images[image].width + "px")
       $('.sliderPreview img').css("height", images[image].height + "px")
       $('.sliderPreview img').attr("src", directory + image)
       $('.sliderPreview img').fadeIn(500)
-      await sleep(8000)
     }
   }
 }
@@ -327,7 +327,7 @@ async function loadImagesRegisters (register) {
                         data-image="' + register.imageHash + '" \
                         onclick="showImageRegister(\''+ register.currentRegister +'\')" > \
                         <div class="imageProfile"> \
-                          <img src="' + register.imageLink + '" /> \
+                          <img src="' + register.imageLink + '"data-hash="' + register.imageHash + '" /> \
                         </div> \
                         <div class="info">' + register.account + ' \
                           <br>Node Timestamp: ' + timeConverter(register.local_timestamp) + ' \

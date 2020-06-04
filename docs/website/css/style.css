@@ -6,11 +6,12 @@ html, body {
   margin: 0px;
   padding: 0px;
   font-family: sans-serif;
-  background-color: #2a3a4d;
+  background-color:  #17202c;
+  color: white;
 }
 
 h1, h2, h3, h4 {
-  color: #4b4f56;
+  color: white ;
   margin: 5px;
   font-family: sans-serif;
   letter-spacing: 1px;
@@ -19,21 +20,25 @@ h1, h2, h3, h4 {
 
 h1 {
   font-family: QuerinoSans;
+  color: #fff ;
   letter-spacing: 3px;
-  color: #2a3a4d;
   font-size: 40px;
+  opacity: 0.75;
 }
 
 h2 {
   font-family: QuerinoSans;
-  font-size: 22px;
-  color: #2a3a4d;
+  color: #fff ;
+  font-size: 25px;
   letter-spacing: 2px;
   margin-left: 5%;
+  opacity: 0.7;
+
 }
 
-h4 {
+h3, h4 {
   font-weight: bold;
+  color: rgba(245, 245, 245, 0.5);
 }
 
 a {
@@ -47,16 +52,15 @@ a:hover {
 
 .container {
   width: 100%;
-  margin: 15px 0px;
-  padding: 10px 10px 25px 10px;
-  border: 1px solid #dddfe2;
+  margin: 20px 0px;
+  padding: 20px 10px 25px 10px;
   border-radius: 3px;
-  background-color: #f5f6f7;
+  background-color: #1b2a38;
 
 }
 
 .sub {
-  width: 1000px;
+  width: 1200px;
   max-width: 100%;
   margin: 0px auto;
   display: flex;
@@ -65,13 +69,15 @@ a:hover {
 }
 
 .about {
-  color: #4b4f56;
+  color: rgba(245, 245, 245, 0.5);
   width: 450px;
+  min-width: 45%;
+  font-size: 18px;
 }
 
 .sliderPreview {
    width: 320px;
-   height: 420px;
+   height: 450px;
    margin: 15px;
    display: flex;
    justify-content: center;
@@ -80,91 +86,7 @@ a:hover {
 .sliderPreview img {
   max-height: 400px;
   align-self: center;
-}
-
-.footer {
-  width: 100%;
-  margin: 0px;
-  padding: 10px 0px;
-}
-
-.footer ul {
-  width: 100%;
-  list-style: none;
-  margin: 0px;
-  padding: 0px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
-
-.footer li.fItem {
-  width: 260px;
-  height: 120px;
-  margin: 10px 20px;
-  padding: 10px 0px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  color: white;
-}
-
-.footer li.fItem:hover svg.i, .footer li.fItem:hover img.i {
-  transition: 0.15s ease-in-out;
-  box-shadow: 0rem 1rem 2rem rgba(0,0,0,0.07);
-  transform: scale(1.05);
-}
-
-.footer h4, .footer p {
-  color: #e9ebee;
-  margin: 1px 0px;
-  padding: 1px 0px;
-}
-
-.footer h4 {
-  font-size: 15px;
-}
-
-.footer p {
-}
-
-.footer .anarkrypto {
-  font-size: 16px;
-  font-family: sans-serif;
-  font-weight: 600;
-  color: white;
-  letter-spacing: 2px;
-}
-
-.footer .donate img {
-  cursor:pointer;
-  width: 90px;
-  height: 90px;
-}
-
-.social-list {
-  width: 180px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.social-list ul {
-  width: 100%;
-  padding: 0px;
-  margin: 0px;
-  list-style: none;
-  display: flex;
-  justify-content: space-between;
-}
-
-.social-list svg {
-  margin: 1px 10px 0px 0px;
-}
-
-.social-list svg:hover {
-  transition: 0.15s ease-in-out;
-  box-shadow: 0rem 1rem 2rem rgba(0,0,0,0.07);
-  transform: scale(1.05);
+  border-radius: 9px;
 }
 
 .uploadImage {
@@ -180,7 +102,7 @@ a:hover {
   width: 160px;
   height: 160px;
   margin: 20px 80px;
-  border: 1px solid #ccc;
+  border: 1px solid #3c4b5e;
   border-radius: 160px;
   box-shadow: 0rem 1rem 2rem rgba(0,0,0,0.07);
 }
@@ -249,7 +171,6 @@ a:hover {
   margin: 0px auto;
   margin-bottom: 25px;
   text-align: center;
-  border-radius: 20px;
   z-index: 3;
   position: fixed;
   top: 40%;
@@ -263,28 +184,40 @@ a:hover {
   height: 100%;
   padding: 15px;
   background-color: #e9ebee;
-  border: 1px solid #dddfe2;
-  border-radius: 3px;
-  background-color: #f5f6f7;
+  background-color: #17202c;
+  border: 1px solid #293a4c;
+  border-radius: 20px
 }
 
 .modal .close {
   position: absolute;
   top: -1px;
   right: -1px;
-  font-size: 18px;
+  font-size: 20px;
+  width: 25px;
+  height: 22px;
   font-weight: bold;
   color: white;
   padding: 7px;
   background-color: #ea5365;
-  border-radius: 0px 0px 0px 12px;
+  background-color: #293a4c;
+  border-radius: 0px 20px 0px 12px;
   cursor: pointer;
+}
+
+.modal .close:hover {
+  opacity: 0.6;
+  background-color: #ea5365;
+}
+
+.modal h3 {
+  color: #c6c9cd;
 }
 
 .listTerms {
   width: 100%;
   height: 320px;
-  font-family: aria;
+  color: #000;
   font-size: 18px;
   text-align: left;
   overflow: auto;
@@ -327,12 +260,33 @@ a:hover {
 
 .col {
   word-break: break-word;
-  width: 300px;
+  width: 350px;
   margin: 20px auto;
   padding: 12px;
-  border: 1px solid #e9ebee;
+  color: rgba(245, 245, 245, 0.5);
+  //border: 1px solid #3c4b5e;
   border-radius: 15px;
-  background: white;
+  background: #17202c;
+}
+
+.col button {
+  color: #c6c9cd;
+  background: #1b2a38;
+  border: solid 1px #c6c9cd;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+.col .request, .col .response {
+  //color:#3F3F4E;
+  color: #b8b8b8;
+  font-size: 14px;
+  padding: 10px;
+  border: solid 1px #293a4c;
+  border-radius: 10px;
+  height: 85px;
+  overflow: auto;
 }
 
 .col .go {
@@ -340,14 +294,18 @@ a:hover {
   text-align: center;
 }
 
-.showRegisters, .changeRepresentative, .sendTransaction {
-  width: 500px;
-  margin: 10px 0 20px 0px;
-}
+
 
 .showRegisters {
-  border: 1px solid #ccc;
   border-radius: 25px;
+  padding: 1px;
+  background: #17202c;
+  border: 1px solid #17202c;
+}
+
+.showRegisters, .changeRepresentative, .sendTransaction {
+  width: 550px;
+  margin: 10px 0 20px 0px;
 }
 
 .showRegisters ul.menu {
@@ -366,20 +324,20 @@ a:hover {
 }
 .showRegisters ul.menu li.left {
   border-top-left-radius: 25px;
-  border-right: 1px solid #ccc;
+  border-right: 1px solid #111a26;
 }
 .showRegisters ul.menu li.right {
   border-top-right-radius: 25px;
 }
 .showRegisters ul.menu li:hover {
-  background-color: #2a3a4d;
+  background-color: #111a26;
   cursor: pointer;
 }
 .showRegisters ul.menu li.selected {
-  background-color: #2a3a4d;
+  background-color: #111a26;
 }
 .showRegisters ul.menu li.selected h3 {
-  color: white;
+  font-weight: bold;
 }
 .showRegisters ul.menu li:hover h3 {
   color: white;
@@ -388,10 +346,9 @@ a:hover {
 .registersInfo {
   width: 100%;
   height: 36px;
-  color: #2a3a4d;
+  color: #b4b8bd;
   margin-bottom: 3px;
-  border-top: solid 1px #ccc;
-  border-bottom: solid 1px #ccc;
+  border-top: solid 1px #111a26;
   text-align: right;
 }
 
@@ -404,20 +361,22 @@ a:hover {
 }
 
 .listRegisters {
-  position: relative;
-  width: 99%;
-  height: 220px;
-  overflow: auto;
+  width: 100%;
+  height: 250px;
+  overflow-y: auto;
+  overflow-x: hidden;
   font-size: 12px;
   text-align: left;
-  color: #333;
+  color: #c6c9cd;
   border-radius: 0px 0px 25px 25px;
-  background-color: #f5f5f5;
   white-space: pre-wrap;
   word-break: break-word;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+}
+.listRegisters::-webkit-scrollbar {
+  width: 0 !important;
 }
 
 .listRegisters img.loading {
@@ -429,38 +388,45 @@ a:hover {
 
 .listRegisters .imageRegister {
   width: 98%;
-  height: 65px;
-  margin-bottom: 2px;
-  border: 1px solid #e9ebee;
-  background-color: white;
-  cursor:pointer;
+  height: 60px;
+  margin: 10px 0px;
+  border: 1px solid #111a26;
+  border-radius: 30px;
+  background: #111a26;
 }
 
 .listRegisters .imageRegister:hover {
   transition: 0.15s ease-in-out;
   box-shadow: 0rem 0.5rem 2rem rgba(0,0,0,0.07);
-  transform: scale(0.96);
+  transform: scale(0.97);
+  cursor: pointer;
 }
 
 .listRegisters .imageRegister .imageProfile {
-  margin: 0px 10px;
-  width: 70px;
-  height: 100%;
-  border-radius: 20px;
+  margin: -7.5px 10px 0px 0px;
   float: left;
   display: flex;
+  height: 75px;
+  width: 75px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #17202c;
+  border: solid 1px #111a26;
+  border-radius: #c6c9cd;
+  position: relative;
+
 }
 
 .listRegisters .imageRegister .imageProfile img {
-  min-width: 60px;
-  max-width: 100%;
-  max-height: 100%;
   align-self: center;
-  border-radius: 20px;
+  position: absolute;
+  //bottom: 0;
+  left: -10%;
+  width: 120%;
 }
 
 .listRegisters .imageRegister .info {
-  margin-left: 100px;
+  margin-left: 90px;
   padding: 2px 0px;
   white-space: pre-wrap;
   word-break: break-word;
@@ -494,14 +460,132 @@ button {
   padding: 15px;
   font-size: 18px;
   font-weight: bold;
-  color: white;
-  background-color: #2a3a4d;
-  border: 0px;
+  color: rgba(245, 245, 245, 0.5);
+  color: #c6c9cd;
+  background: #17202c;
+  border: solid 1px #c6c9cd;
   border-radius: 0.4rem;
   cursor: pointer;
+  opacity: 0.9;
 }
 
 button:hover {
+  transition: 0.15s ease-in-out;
+  box-shadow: 0rem 1rem 2rem rgba(0,0,0,0.07);
+  transform: scale(1.05);
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    display: inline-block;
+    padding: 10px 16px;
+    font-size: 15px;
+    cursor: pointer;
+    color: #c6c9cd;
+    background: #17202c;
+    border: solid 1px #c6c9cd;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    opacity: 0.9;
+    font-weight: bold;
+}
+.custom-file-upload:hover {
+  transition: 0.15s ease-in-out;
+  box-shadow: 0rem 1rem 2rem rgba(0,0,0,0.07);
+  transform: scale(1.05);
+}
+
+.footer {
+  width: 100%;
+  margin: 0px;
+  padding: 10px 0px;
+}
+
+.footer ul {
+  width: 100%;
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.footer li.fItem {
+  width: 260px;
+  height: 120px;
+  margin: 10px 20px;
+  padding: 10px 0px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  color: #c6c9cd;
+}
+
+.footer li.fItem:hover svg.i, .footer li.fItem:hover img.i {
+  transition: 0.15s ease-in-out;
+  box-shadow: 0rem 1rem 2rem rgba(0,0,0,0.07);
+  transform: scale(1.05);
+}
+
+.footer h3, .footer p {
+  color: #c6c9cd;
+  margin: 1px 0px;
+  padding: 1px 0px;
+}
+
+.footer a {
+  color: rgba(245, 245, 245, 0.5);
+  text-decoration: none;
+}
+
+.footer a:hover {
+  color: white;
+}
+
+.footer h4 {
+  font-size: 15px;
+}
+
+.footer .anarkrypto {
+  font-size: 16px;
+  font-family: sans-serif;
+  font-weight: 600;
+  color: #c6c9cd;
+  letter-spacing: 2px;
+}
+
+.footer .donate img {
+  cursor:pointer;
+  width: 90px;
+  height: 90px;
+}
+
+.social-list {
+  width: 180px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.social-list ul {
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+}
+
+.social-list svg {
+  margin: 1px 10px 0px 0px;
+}
+
+.social-list svg:hover {
   transition: 0.15s ease-in-out;
   box-shadow: 0rem 1rem 2rem rgba(0,0,0,0.07);
   transform: scale(1.05);
@@ -514,8 +598,6 @@ button:hover {
 
 
 @media screen and (max-width: 400px) {
-  .container {
-  }
   .about {
     width: 350px;
   }
