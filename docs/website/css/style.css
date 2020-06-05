@@ -389,10 +389,11 @@ a:hover {
 .listRegisters .imageRegister {
   width: 98%;
   height: 60px;
-  margin: 10px 0px;
+  margin: 7px 0px;
   border: 1px solid #111a26;
   border-radius: 30px;
   background: #111a26;
+  align-self: center;
 }
 
 .listRegisters .imageRegister:hover {
@@ -406,8 +407,8 @@ a:hover {
   margin: -7.5px 10px 0px 0px;
   float: left;
   display: flex;
-  height: 75px;
-  width: 75px;
+  height: 70px;
+  width: 70px;
   border-radius: 50%;
   overflow: hidden;
   background: #17202c;
@@ -589,6 +590,13 @@ input[type="file"] {
   transition: 0.15s ease-in-out;
   box-shadow: 0rem 1rem 2rem rgba(0,0,0,0.07);
   transform: scale(1.05);
+}
+
+.video {
+  width: 100%;
+  max-width: 700px;
+  margin: 20px 0px;
+  border-radius: 15px;
 }
 
 @font-face {

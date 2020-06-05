@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body class="background">
+<body>
 
   <div class="container" id="apresentation">
     <div class="sub">
@@ -35,7 +35,10 @@
 				</div>
       </div>
       <div class="sliderPreview">
-        <img src="img/NanoProfile_logo.png" style="width: 330px; height: 260px">
+        <img src="img/NanoProfile_logo.png" style="width: 330px; height: 260px; display:block">
+				<img src="img/exampleApp1.png" style="width: 330px; height: 430px; display:none">
+				<img src="img/nano_ipfs_network.png" style="width: 280px; height: 275px; display:none">
+				<img src="img/exampleApp2.png" style="width: 250px; height: 430px; display:none">
       </div>
     </div>
   </div>
@@ -44,7 +47,7 @@
 		<h2>How it Works</h2>
 		<div class="sub" style="text-align: center;">
 			<div style="width: 100%">
-				<video style="width: 100%; max-width: 800px; border-radius: 15px;" controls>
+				<video class="video" style="width: 100%; max-width: 700px;" controls poster="/img/video_poster.png">
 					<source src="/video/whatIsNanoProfile.webm" type="video/webm">
 							Your browser does not support the video tag.
 				</video>
@@ -307,7 +310,7 @@
 <script type="text/javascript" src="utils/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="utils/buffer.js"></script>
 <script type="text/javascript" src="utils/ipfs-http-client.js"></script>
-<script type="text/javascript" src="ipfs-upload.js"></script>
+<script type="text/javascript" src="ipfs.js"></script>
 <script type="text/javascript" src="utils/qrcode.js"></script>
 <script type="text/javascript" src="NanoProfile_client.js/blake2b.js"></script>
 <script type="text/javascript" src="NanoProfile_client.js/NanoProfile_client.js"></script>

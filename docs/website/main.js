@@ -68,18 +68,18 @@ function handleFiles(files){
 }
 
 async function imageSlider() {
-  const directory = "img/"
-  const images = {"exampleApp1.png": {width: 330, height: 430 }, "exampleApp2.png": {width: 250, height: 430 }, "NanoProfile_logo.png": {width: 330, height: 260 }}
-  while (true) {
-    for (image in images) {
-      await sleep(8000)
-      $('.sliderPreview img').fadeOut(500)
-      await sleep (550)
-      $('.sliderPreview img').css("width", images[image].width + "px")
-      $('.sliderPreview img').css("height", images[image].height + "px")
-      $('.sliderPreview img').attr("src", directory + image)
-      $('.sliderPreview img').fadeIn(500)
+  async function changeImages(images){
+    for (let image in images) {
+      $(images[image]).fadeIn(700)
+      await sleep(7700)
+      $(images[image]).fadeOut(700);
+      await sleep(700)
+      $(images[image]).hide()
     }
+  }
+  const images = $('.sliderPreview img')
+  while (true) {
+    await changeImages([...images])
   }
 }
 
