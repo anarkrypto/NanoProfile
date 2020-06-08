@@ -9,7 +9,7 @@ And all of this in a safe and decentralized mechanism.
 Using Nano + the P2P network IPFS !
 
 ## Web Demo: 
-#### http://nanoprofile.online#demo
+#### https://nanoprofile.online#demo
 <img src="https://miro.medium.com/max/1280/1*Rq3CF_lroG8y39nQRzdA8Q.png">
 
 ## Client JS
@@ -35,7 +35,7 @@ If you want to try it out using our server API, we provide you the access to it:
 Example of requesting a profile image for a specific Nano account:
 
 ```bash 
-curl -s — header “Content-Type: application/json” — request POST — data ‘{“account”: “nano_35g1u9tcf93khx1hjdsdgo1i6eu4bty6fsc8zifo7yfn368i9nweg3zfbz5p”}’ http://api.nanoprofile.online
+curl -s — header “Content-Type: application/json” — request POST — data ‘{“account”: “nano_35g1u9tcf93khx1hjdsdgo1i6eu4bty6fsc8zifo7yfn368i9nweg3zfbz5p”}’ https://api.nanoprofile.online
 ```
 
 Response:
@@ -57,7 +57,7 @@ https://github.com/anarkrypto/NanoProfile/tree/master/replicator_api
 
 ## Read More:
 
-Read More on Medium: https://bit.ly/nanoprofile
+Read More on Medium: https://medium.com/@kaiquenunes/nano-profile-7437884e8f9a
 
 
  <p align="center">    
