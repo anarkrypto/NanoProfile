@@ -1,7 +1,7 @@
 requests==2.23.0
 base58==2.0.0
 ipfshttpclient==0.4.13.2
-waitress==1.4.2
+waitress==1.4.3
 flask==1.1.1
 flask_cors==3.0.9
 nanolib==0.4.1
