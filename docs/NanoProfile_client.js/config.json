@@ -1,5 +1,5 @@
 {
-  "node": "http://127.0.0.1:7076",
+  "node": "https://rpc.p2pow.online",
   "imageCode": ["131000000000000000000000000", "1315081206"],
   "trackerAccount": "nano_1nanoprofi1e7defau1t7account7tracker7image7registerr4twum9q3",
   "ipfsGateway": "https://ipfs.io/ipfs/"
