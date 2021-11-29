@@ -601,7 +601,7 @@ input[type="file"] {
 
 @font-face {
     font-family: QuerinoSans;
-    src: url("/fonts/QuerinoSans_PERSONAL_USE_ONLY.ttf") format("opentype");
+    src: url("./fonts/QuerinoSans_PERSONAL_USE_ONLY.ttf") format("opentype");
 }
 
 
