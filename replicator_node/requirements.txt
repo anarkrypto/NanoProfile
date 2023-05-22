@@ -1,4 +1,4 @@
-requests==2.23.0
+requests==2.31.0
 base58==2.0.0
 ipfshttpclient==0.4.13.2
 waitress==2.1.1
